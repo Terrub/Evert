@@ -1,0 +1,11 @@
+## Interface: 11200
+## Title: Evert
+## Notes: Displays event driven textures on screen.
+## Author: Terrub le Programmer
+## Version: 0.0.1
+## Dependencies:
+## SavedVariables: Evert_savedVariables
+
+EventHandler.lua
+Stamp.lua
+Evert.lua
