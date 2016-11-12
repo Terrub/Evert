@@ -33,6 +33,56 @@ local tremove = table.remove;
 local tinsert = table.insert;
 local math_floor = math.floor;
 
+--------
+
+local function isBoolean(value)
+
+	return (type(value) == "boolean")
+
+end
+
+--------
+
+local function isString(value)
+
+	return (type(value) == "string")
+
+end
+
+--------
+
+local function isTable(value)
+
+	return (type(value) == "table")
+
+end
+
+--------
+
+local function isNumber(value)
+
+	return (type(value) == "number")
+
+end
+
+--------
+
+local function isFunction(value)
+
+	return (type(value) == "function")
+	
+end
+
+--------
+
+function isClass(value, instance)
+
+	return (getmetatable(instance) == value)
+
+end
+
+--------
+
 pop = function(t)
 	
 	if not t then return end;
@@ -102,94 +152,50 @@ end;
 
 stringify = function(value, key, indent)
 
-	local _key = tostring(key);
-	local _val = tostring(value);
-	local i = indent or "";
+	local _key = tostring(key)
+	local _val = tostring(value)
+	local i = indent or ""
 	
-	local recursive = false;
-	
+	local recursive = false
+
 	if isTable(value) then
-	
+		prt("found a table!")
 		if isFunction(value.GetName) and value:GetName() then
-			_val = _val .. ' "|cffffffff' .. value:GetName() .. '|r"';
+			_val = _val .. ' "|cffffffff' .. value:GetName() .. '|r"'
 		end
 		
-		recursive = true;
+		recursive = true
 		
 	end
 	
 	-- Add a white colour to strings
 	if isString(value) then
 	
-		_val = "|cffffffff" .. _val .. "|r";
+		_val = "|cffffffff" .. _val .. "|r"
 	
 	elseif isNumber(value) then
 	
-		_val = "|cffffff33" .. _val .. "|r";
+		_val = "|cffffff33" .. _val .. "|r"
 	
 	elseif isBoolean(value) then
 	
-		_val = "|cff9999ff" .. _val .. "|r";
+		_val = "|cff9999ff" .. _val .. "|r"
 	
 	end
 	
-	prt(i .. "[|cff22ff22" .. _key .. "|r] |cff999999" .. _val .. "|r");
+	prt(i .. "[|cff22ff22" .. _key .. "|r] |cff999999" .. _val .. "|r")
 	
 	if recursive then
-		
+		prt("doing recursion")
 		for k, v in pairs(value) do
 		
-			stringify(v, k, i.."   ");
+			stringify(v, k, i.."   ")
 			
-		end;
+		end
 		
 	end
 	
 end
-
---------
-
-isBoolean = function(bln)
-
-	return (type(bln) == "boolean");
-
-end;
-
---------
-
-isString = function(str)
-
-	return (type(str) == "string");
-
-end;
-
---------
-
-isTable = function(tbl)
-
-	return (type(tbl) == "table");
-
-end;
-
---------
-
-isNumber = function(num)
-
-	return (type(num) == "number");
-
-end;
-
-isFunction = function(fnc)
-
-	return (type(fnc) == "function");
-	
-end;
-
-isClass = function(class, instance)
-
-	return (getmetatable(instance) == class);
-
-end;
 
 --------
 
